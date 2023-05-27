@@ -1,30 +1,25 @@
 import React from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 
-const POSTS = [
-    { id: `1`, title: 'AAAAAA' },
-    { id: `2`, title: 'BBBBBB' }
-]
-
 type PostProps = {
     id: string;
     title: string;
 }
 
 export const UseQueryExample = () => {
-    const [data, setData] = React.useState<PostProps[]>(POSTS)
+    const [data, setData] = React.useState<PostProps[]>([])
     const postsQuery = useQuery({
         queryKey: ['posts'],
         queryFn: () => wait(1000)
-            .then(() => [...POSTS])
+            .then(() => [...data])
     })
 
     const newPost = useMutation({
         mutationFn: (title: string) => {
             return wait(1000)
                 .then(() => {
-                    POSTS.push({ id: crypto.randomUUID(), title })
-                    setData(POSTS)
+                    data.push({ id: crypto.randomUUID(), title })
+                    setData(data)
                 }
                 )
         },

@@ -1,9 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import React from 'react'
 
-const POSTS = [
-    { id: ``, title: '', email: '' },
-]
 
 type PostProps = {
     id: string;
@@ -12,23 +9,22 @@ type PostProps = {
 }
 
 export const UseMutationExample = () => {
-    const [data, setData] = React.useState<PostProps[]>(POSTS)
+    const [data, setData] = React.useState<PostProps[]>([])
     const [title, setTitle] = React.useState('')
     const [email, setEmail] = React.useState('')
 
 
     const createPost = (e: React.FormEvent) => {
         e.preventDefault()
-        POSTS.push({
+        data.push({
             id: crypto.randomUUID(),
             title: title,
             email: email
         })
-        setData(POSTS)
+        setData(data)
         setEmail('')
         setTitle('')
-        console.log(POSTS)
-        return POSTS
+        return data
     };
 
     const createPostMutation = useMutation({
@@ -48,7 +44,7 @@ export const UseMutationExample = () => {
         <div>
             {createPostMutation.isError && JSON.stringify(createPostMutation.error)}
 
-            {data.length > 1 ? (
+            {data.length > 0 ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {data.map((post) => (
                         <div key={post.id} style={{ display: 'flex', flexDirection: 'column' }}>
