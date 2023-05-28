@@ -55,7 +55,6 @@ export const UseMutationExample = () => {
                 </div>
             ) : (
                 <form onSubmit={createPost} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    <h1>CreatePost</h1>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <label>Title</label>
                         <input type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -64,7 +63,7 @@ export const UseMutationExample = () => {
                         <label>Email</label>
                         <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                    <button type='submit' style={{ marginTop: 20 }}>
+                    <button type='submit' disabled={!email || !title} style={{ marginTop: 20 }}>
                         Submit
                     </button>
                 </form>
